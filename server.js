@@ -163,6 +163,16 @@ app.get("/users", async (req, res) => {
   }
 });
 
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return console.error(err);
+    }
+    res.send({ message: "Déconnexion réussie" });
+  });
+});
+
+
 // Démarrer le serveur
 app.listen(port, () => {
   console.log(`L'application écoute sur le port ${port}`);
