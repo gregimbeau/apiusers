@@ -13,11 +13,10 @@ app.use(
     origin: [
       "http://localhost:3001",
       "https://singular-cranachan-2b3e50.netlify.app/",
+      "https://apiusers-dbia.onrender.com",
     ],
   })
 );
-
-
 
 // Middleware
 app.use(bodyParser.json());
@@ -107,7 +106,6 @@ app.post("/users", async (req, res) => {
   }
 });
 
-
 app.delete("/users/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -171,7 +169,6 @@ app.get("/logout", (req, res) => {
     res.send({ message: "Déconnexion réussie" });
   });
 });
-
 
 // Démarrer le serveur
 app.listen(port, () => {
