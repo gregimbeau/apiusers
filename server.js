@@ -8,15 +8,15 @@ const app = express();
 const port = 3000;
 const cors = require("cors");
 
-// Utilisez CORS pour toutes les routes
-app.use(cors());
-
-// Ou, pour configurer spécifiquement les origines autorisées :
 app.use(
   cors({
-    origin: "http://localhost:3001", // Autorise les requêtes provenant de votre front-end Nuxt
+    origin: [
+      "http://localhost:3001",
+      "https://singular-cranachan-2b3e50.netlify.app/",
+    ],
   })
 );
+
 
 
 // Middleware
