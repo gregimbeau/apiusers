@@ -11,10 +11,12 @@ const cors = require("cors");
 app.use(
   cors({
     origin: [
-      "http://localhost:3001",
-      "https://singular-cranachan-2b3e50.netlify.app/",
-      "https://apiusers-dbia.onrender.com",
+      "http://localhost:3001", // For local development
+      "https://singular-cranachan-2b3e50.netlify.app", // Netlify frontend
+      "https://apiusers-dbia.onrender.com", // backend
     ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
