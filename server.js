@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001", // For local development
-      "kaminuxt.netlify.app", // Netlify frontend
+      "https://kaminuxt.netlify.app", // Netlify frontend
       "https://apiusers-dbia.onrender.com", // backend
     ],
     credentials: true,
