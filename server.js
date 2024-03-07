@@ -66,7 +66,7 @@ app.post("/login", async (req, res) => {
         .send({ message: "Nom d'utilisateur ou mot de passe incorrect." });
     }
 
-    res.send({ message: "Connexion réussie" });
+res.send({ message: "Connexion réussie", userId: user.id });
     // Implémentez ici la logique de session ou de token selon votre approche d'authentification
   } catch (error) {
     console.error(error);
@@ -123,11 +123,14 @@ app.delete("/users/:id", async (req, res) => {
 
 app.put("/users/:id", async (req, res) => {
   const { id } = req.params;
-  const { username, email } = req.body;
+  const { username, email, picture, description, firstname, surname } =
+    req.body; // Updated to include new fields
+
   try {
+    // Update query to include the new fields
     await executeQuery(
-      "UPDATE users SET username = ?, email = ? WHERE id = ?",
-      [username, email, id]
+      "UPDATE users SET username = ?, email = ?, picture = ?, description = ?, firstname = ?, surname = ? WHERE id = ?",
+      [username, email, picture, description, firstname, surname, id]
     );
     res.send({ message: "Utilisateur mis à jour avec succès" });
   } catch (error) {
@@ -137,6 +140,7 @@ app.put("/users/:id", async (req, res) => {
       .send({ message: "Erreur lors de la mise à jour de l'utilisateur" });
   }
 });
+
 
 app.get("/users/:id", async (req, res) => {
   const { id } = req.params;
