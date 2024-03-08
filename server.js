@@ -3,10 +3,15 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2/promise");
-
+const cors = require("cors");
+const bcrypt = require("bcrypt");
 const app = express();
 const port = 3000;
-const cors = require("cors");
+
+// Configuration de la base de données en utilisant DATABASE_URL
+const pool = mysql.createPool(process.env.DATABASE_URL);
+// Ici, importez postsRoutes après avoir défini pool
+const postsRoutes = require("./postsRoutes")(pool); // Assurez-vous que le chemin vers postsRoutes est correct
 
 app.use(
   cors({
@@ -22,9 +27,8 @@ app.use(
 
 // Middleware
 app.use(bodyParser.json());
+app.use("/api", postsRoutes);
 
-// Configuration de la base de données en utilisant DATABASE_URL
-const pool = mysql.createPool(process.env.DATABASE_URL);
 
 // Fonction pour exécuter les requêtes SQL
 async function executeQuery(query, params = []) {
@@ -34,7 +38,6 @@ async function executeQuery(query, params = []) {
 
 // Routes
 
-const bcrypt = require("bcrypt");
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
