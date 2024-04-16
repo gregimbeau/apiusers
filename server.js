@@ -17,6 +17,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001", // For local development
+      "http://localhost:3000", // For local development
       "https://kaminuxt.netlify.app", // Netlify frontend
       "https://apiusers-dbia.onrender.com", // backend
     ],
@@ -29,7 +30,6 @@ app.use(
 app.use(bodyParser.json());
 app.use("/api", postsRoutes);
 
-
 // Fonction pour exécuter les requêtes SQL
 async function executeQuery(query, params = []) {
   const [results] = await pool.execute(query, params);
@@ -37,7 +37,6 @@ async function executeQuery(query, params = []) {
 }
 
 // Routes
-
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -69,7 +68,7 @@ app.post("/login", async (req, res) => {
         .send({ message: "Nom d'utilisateur ou mot de passe incorrect." });
     }
 
-res.send({ message: "Connexion réussie", userId: user.id });
+    res.send({ message: "Connexion réussie", userId: user.id });
     // Implémentez ici la logique de session ou de token selon votre approche d'authentification
   } catch (error) {
     console.error(error);
@@ -143,7 +142,6 @@ app.put("/users/:id", async (req, res) => {
       .send({ message: "Erreur lors de la mise à jour de l'utilisateur" });
   }
 });
-
 
 app.get("/users/:id", async (req, res) => {
   const { id } = req.params;
